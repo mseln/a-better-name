@@ -1,0 +1,14 @@
+
+Info.plist
+
+*.mode1v3
+
+*.pbxuser
+
+*.pbxproj
+
+build/*
+
+*.gitignore~
+
+.DS_store
