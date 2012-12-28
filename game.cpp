@@ -20,8 +20,8 @@ Game::Game(){
 void Game::run(){
 	while (window->IsOpened()){
 		event_h->update();
-		
 		window->Clear();
+		
 		update();
 		window->Display();
 	}

@@ -29,6 +29,7 @@ public:
 	
 	void draw();
 	void update(player_input input, Object obj);
+	Vec2f get_np(){return Vec2f(p[0], p[1] + v);}
 };
 
 #endif

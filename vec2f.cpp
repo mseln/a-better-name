@@ -62,6 +62,10 @@ Vec2f Vec2f::operator-() const {
 	return Vec2f(-v[0], -v[1]);
 }
 
+bool  Vec2f::operator==(const Vec2f &other) const {
+	return (fabs(v[0] - other.v[0]) <  0.000001 and fabs(v[1] - other.v[1]) <  0.000001) ? 1 : 0;
+}
+
 const Vec2f &Vec2f::operator*=(float scale) {
 	v[0] *= scale;
 	v[1] *= scale;
@@ -95,7 +99,7 @@ float Vec2f::magnitudeSquared() const {
 }
 
 Vec2f Vec2f::normalize() const {
-	float m = sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+	float m = sqrt(v[0] * v[0] + v[1] * v[1]);
 	return Vec2f(v[0] / m, v[1] / m);
 }
 

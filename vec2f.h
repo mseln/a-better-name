@@ -38,12 +38,14 @@ class Vec2f {
 		Vec2f operator+(const Vec2f &other) const;
 		Vec2f operator-(const Vec2f &other) const;
 		Vec2f operator-() const;
+		bool  operator==(const Vec2f &other) const;
+	
 		
 		const Vec2f &operator*=(float scale);
 		const Vec2f &operator/=(float scale);
 		const Vec2f &operator+=(const Vec2f &other);
 		const Vec2f &operator-=(const Vec2f &other);
-		
+	
 		float magnitude() const;
 		float magnitudeSquared() const;
 		Vec2f normalize() const;

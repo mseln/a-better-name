@@ -10,6 +10,7 @@
 #ifndef _OBJECTS_H_
 #define _OBJECTS_H_
 
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include "vec2f.h"
 
@@ -18,25 +19,15 @@ private:
 	sf::RenderWindow * window;
 	
 	Vec2f v[4];
+	Vec2f n[4];
+	Vec2f proj[4];
 	
 public:
-	Object(sf::RenderWindow * w){ 
-		window = w;
-		v[0][0] = 100;
-		v[0][1] = 100;
-		
-		v[1][0] = 1100;
-		v[1][1] = 100;
-		
-		v[2][0] = 1100;
-		v[2][1] = 110;
-		
-		v[3][0] = 100;
-		v[3][1] = 110;
-	}
+	Object(sf::RenderWindow * w);
 	void draw();
-	Vec2f * get_v(){return v;};
-
+	Vec2f * get_v(){return v;}
+	Vec2f * get_n(){return n;}
+	Vec2f col_det(Vec2f np);
 };
 
 #endif

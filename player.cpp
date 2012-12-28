@@ -10,33 +10,26 @@
 #include "player.h"
 
 void Player::draw(){
-	sf::Shape Rect = sf::Shape::Rectangle(p[0], 800 - p[1], p[0]+10, 800 - (p[1] + 10), sf::Color(255, 255, 255));
+	sf::Shape Rect = sf::Shape::Circle(p[0], 800 - p[1], 5, sf::Color(0, 255, 0));
 	window->Draw(Rect);
 }
 
 void Player::update(player_input input, Object obj){
 	if(input.fwd) p[0] += 10;
 	if(input.bwd) p[0] -= 10;
-	if(input.jmp) {
-		v = 10;
-		in_air = true;
-	}
-	if(input.ddg);
+	if(input.jmp) p[1] += 10;
+	if(input.ddg) p[1] -= 10;
 	
-	if(in_air) v -= 0.1;
+	v -= 0.01;
 	p[1] += v;
+	
+	Vec2f chk_if_np_ok = obj.col_det(p);
+	if(!(Vec2f(10000, 10000) == chk_if_np_ok))
+		p = chk_if_np_ok;
 	
 	this->chk_col(obj);
 }
 
 void Player::chk_col(Object obj){
 	const Vec2f * ov = new Vec2f[4]; ov = obj.get_v();
-	Vec2f np = p; np[1] += v;
-	
-	
-	if(ov[3][1] > np[1]){
-		p[1] = ov[3][1];
-		v = 0;
-		in_air = false;
-	}
 }
