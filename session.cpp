@@ -25,10 +25,6 @@ void Session::update(){
 	p_input.ddg = event_h->pollSp('d');
 	
 	player->update(p_input, *obj);
-	
-	
-	// obj->col_det(player->get_np());
-	
 }
 void Session::draw(){
 	obj->draw();

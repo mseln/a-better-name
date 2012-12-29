@@ -74,11 +74,6 @@ void Menu::draw(sf::RenderWindow * window){
 }
 
 void Menu::update(Game_States * state, Event_Handler * event_h, sf::RenderWindow * window){
-	//if(event_h->pollMb('l')) std::cout << "left button is down!!\n";
-	//if(event_h->pollMb('r')){ std::cout << "right button is down!!\n";
-	//	std::cout << "Mouse position: X = " << event_h->pollMp('x') << " Y = " << event_h->pollMp('y') << '\n'; 
-	//}
-	
 	if( start_b.check(event_h->pollMp('x'), event_h->pollMp('y'), event_h->pollMb('l')) ) *state = IN_GAME;
 	if( quit_b.check(event_h->pollMp('x'), event_h->pollMp('y'), event_h->pollMb('l')) ) window->Close();
 }
@@ -111,11 +106,6 @@ void InGame_Menu::draw(sf::RenderWindow * window){
 }
 
 void InGame_Menu::update(Game_States * state, Event_Handler * event_h, sf::RenderWindow * window){
-	//if(event_h->pollMb('l')) std::cout << "left button is down!!\n";
-	//if(event_h->pollMb('r')){ std::cout << "right button is down!!\n";
-	//	std::cout << "Mouse position: X = " << event_h->pollMp('x') << " Y = " << event_h->pollMp('y') << '\n'; 
-	//}
-	
 	if( back_b.check(event_h->pollMp('x'), event_h->pollMp('y'), event_h->pollMb('l')) ) *state = IN_GAME;
 	if( exit_b.check(event_h->pollMp('x'), event_h->pollMp('y'), event_h->pollMb('l')) ) *state = MENU;
 }

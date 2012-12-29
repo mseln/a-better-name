@@ -25,11 +25,16 @@ private:
 	
 	void chk_col(Object obj);
 public:
-	Player(sf::RenderWindow * w){ window = w; p[0] = 10; p[1] = 790; v = 0; in_air = true;}
+	Player(sf::RenderWindow * w){ 
+		window = w; 
+		p[0] = 10; 
+		p[1] = 790; 
+		v = 0;
+		in_air = true;
+	}
 	
 	void draw();
 	void update(player_input input, Object obj);
-	Vec2f get_np(){return Vec2f(p[0], p[1] + v);}
 };
 
 #endif

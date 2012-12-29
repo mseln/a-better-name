@@ -15,20 +15,10 @@ void Player::draw(){
 }
 
 void Player::update(player_input input, Object obj){
-	Vec2f op = p;
 	if(input.fwd) p[0] += 1;
 	if(input.bwd) p[0] -= 1;
 	if(input.jmp) p[1] += 1;
 	if(input.ddg) p[1] -= 1;
-	 
 	
-	Vec2f chk_if_np_ok = obj.col_det(p, op);
-	if(!(Vec2f(10000, 10000) == chk_if_np_ok))
-		p = chk_if_np_ok;
-	
-	this->chk_col(obj);
-}
-
-void Player::chk_col(Object obj){
-	const Vec2f * ov = new Vec2f[4]; ov = obj.get_v();
+	p = obj.col_det(p);
 }
