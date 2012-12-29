@@ -15,13 +15,13 @@ Object::Object(sf::RenderWindow * w){
 	v[0][1] = 300;
 	
 	v[1][0] = 400;
-	v[1][1] = 600;
+	v[1][1] = 700;
 	
 	v[2][0] = 500;
-	v[2][1] = 500;
+	v[2][1] = 200;
 	
-	v[3][0] = 600;
-	v[3][1] = 200;
+	v[3][0] = 400;
+	v[3][1] = 100;
 	
 	
 	n[0][0] =   v[0][1] - v[1][1];
@@ -54,7 +54,7 @@ void Object::draw(){
 	//sf::Shape Line0   = sf::Shape::Line(	v[0][0] + (v[0][0] - v[1][0]) / 2,					v[0][1] + (v[0][1] - v[1][1]) / 2,
 	//										v[0][0] + (v[0][0] - v[1][0]) / 2 + n[3][0] * 400,	v[0][1] + (v[0][1] - v[1][1]) / 2 + n[3][1] * 100,
 	//										2, sf::Color(255, 0, 0));
-	
+
 	sf::Shape Line0	  = sf::Shape::Line(200, 200, 400, 400, 2, sf::Color(255, 0, 0));
 	
 	//std::cout << v[0] << '\t' << v[1] << '\t' << v[2] << '\t' << v[3] << '\n';
@@ -112,7 +112,7 @@ void Object::draw(){
 	window->Draw(Line8);
 }
 
-Vec2f Object::col_det(Vec2f np){
+Vec2f Object::col_det(Vec2f np, Vec2f op){
 	Vec2f r[4];
 	r[0] = (v[0] - v[1]).normalize();
 	r[1] = (v[1] - v[2]).normalize();
@@ -124,18 +124,22 @@ Vec2f Object::col_det(Vec2f np){
 	for(int i = 0; i < 4; i++)
 		t[i] = ( n[i][0] * (v[i][1] - np[1]) + n[i][1] * (- v[i][0] + np[0]) ) / (n[i][1] * r[i][0] - n[i][0] * r[i][1]);
 	
-	for(int i = 0; i < 4; i++){
-		sf::Shape Circle = sf::Shape::Circle(t[i] * r[i][0] + v[i][0], 800 - (t[i] * r[i][1] + v[i][1]), 5, sf::Color(0, 0, 255));
-		window->Draw(Circle);
-	}
+	//for(int i = 0; i < 4; i++){
+	//	sf::Shape Circle = sf::Shape::Circle(t[i] * r[i][0] + v[i][0], 800 - (t[i] * r[i][1] + v[i][1]), 5, sf::Color(0, 0, 255));
+	//	window->Draw(Circle);
+	//}
 	
 	
-	bool col = true;
+	bool col = true; Vec2f oproj[4];
 	for(int i = 0; i < 4; i++){
 		proj[i][0] = np[0] - (t[i] * r[i][0] + v[i][0]);
 		proj[i][1] = np[1] - (t[i] * r[i][1] + v[i][1]);
+		
+		// oproj[i][0] = op[0] - (t[i] * r[i][0] + v[i][0]);
+		// oproj[i][1] = op[1] - (t[i] * r[i][1] + v[i][1]);
+		
 		// proj[i] = proj[i].normalize();
-		if(!(proj[i] == -n[i])) col = false;
+		//if(!(proj[i] == -n[i])) col = false;
 	}
 	
 	if((proj[0] + n[0]).magnitude() < proj[0].magnitude() and 
@@ -148,13 +152,13 @@ Vec2f Object::col_det(Vec2f np){
 				shrtst = proj[i].magnitude();
 				index = i;
 			}
-		sf::Shape Circle = sf::Shape::Circle(10, 10, 3, sf::Color(255, 255, 0));
-		window->Draw(Circle);
+		//sf::Shape Circle = sf::Shape::Circle(10, 10, 3, sf::Color(255, 255, 0));
+		//window->Draw(Circle);
 		return Vec2f(t[index] * r[index][0] + v[index][0], t[index] * r[index][1] + v[index][1]);
 	}
 		
-	for(int i = 0; i < 4; i++) std::cout << proj[i] << '\t' << n[i] << '\n';
-	std::cout << '\n';
+	//for(int i = 0; i < 4; i++) std::cout << proj[i] << '\t' << n[i] << '\n';
+	//std::cout << '\n';
 	
 	return Vec2f(10000, 10000);
 }

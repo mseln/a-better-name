@@ -10,20 +10,19 @@
 #include "player.h"
 
 void Player::draw(){
-	sf::Shape Rect = sf::Shape::Circle(p[0], 800 - p[1], 5, sf::Color(0, 255, 0));
+	sf::Shape Rect = sf::Shape::Circle(p[0], 800 - p[1], 1, sf::Color(0, 255, 0));
 	window->Draw(Rect);
 }
 
 void Player::update(player_input input, Object obj){
-	if(input.fwd) p[0] += 10;
-	if(input.bwd) p[0] -= 10;
-	if(input.jmp) p[1] += 10;
-	if(input.ddg) p[1] -= 10;
+	Vec2f op = p;
+	if(input.fwd) p[0] += 1;
+	if(input.bwd) p[0] -= 1;
+	if(input.jmp) p[1] += 1;
+	if(input.ddg) p[1] -= 1;
+	 
 	
-	v -= 0.01;
-	p[1] += v;
-	
-	Vec2f chk_if_np_ok = obj.col_det(p);
+	Vec2f chk_if_np_ok = obj.col_det(p, op);
 	if(!(Vec2f(10000, 10000) == chk_if_np_ok))
 		p = chk_if_np_ok;
 	

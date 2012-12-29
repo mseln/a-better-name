@@ -27,7 +27,7 @@ public:
 	void draw();
 	Vec2f * get_v(){return v;}
 	Vec2f * get_n(){return n;}
-	Vec2f col_det(Vec2f np);
+	Vec2f col_det(Vec2f np, Vec2f op);
 };
 
 #endif

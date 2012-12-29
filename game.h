@@ -35,6 +35,7 @@ private:
 	
 	// Session * sess;
 	bool pause_if_in_menu;
+	int ctr;
 public:
 	
 	Game();

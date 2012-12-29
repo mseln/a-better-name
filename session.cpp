@@ -26,10 +26,11 @@ void Session::update(){
 	
 	player->update(p_input, *obj);
 	
-	obj->draw();
-	obj->col_det(player->get_np());
-	player->draw();
+	
+	// obj->col_det(player->get_np());
+	
 }
 void Session::draw(){
-	
+	obj->draw();
+	player->draw();
 }

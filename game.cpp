@@ -15,15 +15,17 @@ Game::Game(){
 	*game_state = MENU;
 	
 	pause_if_in_menu = true;
+	ctr=0;
 }
 
 void Game::run(){
 	while (window->IsOpened()){
+		std::cout << ctr << '\n';
+		if (ctr == 4) ctr=0; else ctr++;
 		event_h->update();
-		window->Clear();
-		
+		if (ctr == 0) window->Clear();
 		update();
-		window->Display();
+		if (ctr == 0) window->Display();
 	}
 }
 
@@ -62,7 +64,7 @@ void Game::gameloop(){
 	}
 	
 	session->update();
-	session->draw();
+	if (ctr == 0) session->draw();
 }
 
 void Game::ingame_menuloop(){
