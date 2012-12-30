@@ -3,7 +3,7 @@
 #include "game.h"
 
 Game::Game(){
-	window = new sf::RenderWindow(sf::VideoMode(1200, 800), "TCoCD");
+	window = new sf::RenderWindow(sf::VideoMode(1200, 760), "S_01");
 	window->SetFramerateLimit(60);
 	
 	event_h = new Event_Handler(window);

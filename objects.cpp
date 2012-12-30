@@ -11,19 +11,25 @@
 
 Object::Object(sf::RenderWindow * w){
 	window = w;
-	v[0][0] = 300;
-	v[0][1] = 300;
 	
-	v[1][0] = 400;
-	v[1][1] = 700;
+	n[0][0] =   v[0][1] - v[1][1];
+	n[0][1] = -(v[0][0] - v[1][0]);
+	n[0] = n[0].normalize();
 	
-	v[2][0] = 500;
-	v[2][1] = 200;
+	n[1][0] =   v[1][1] - v[2][1];
+	n[1][1] = -(v[1][0] - v[2][0]);
+	n[1] = n[1].normalize();
 	
-	v[3][0] = 400;
-	v[3][1] = 100;
+	n[2][0] =   v[2][1] - v[3][1];
+	n[2][1] = -(v[2][0] - v[3][0]);
+	n[2] = n[2].normalize();
 	
-	
+	n[3][0] =   v[3][1] - v[0][1];
+	n[3][1] = -(v[3][0] - v[0][0]);
+	n[3] = n[3].normalize();
+}
+
+void Object::update_chg(){
 	n[0][0] =   v[0][1] - v[1][1];
 	n[0][1] = -(v[0][0] - v[1][0]);
 	n[0] = n[0].normalize();
@@ -43,10 +49,10 @@ Object::Object(sf::RenderWindow * w){
 
 void Object::draw(){
 	sf::Shape Polygon;
-	Polygon.AddPoint(v[0][0], 800 - v[0][1], sf::Color(255, 255, 255));
-	Polygon.AddPoint(v[1][0], 800 - v[1][1], sf::Color(255, 255, 255));
-	Polygon.AddPoint(v[2][0], 800 - v[2][1], sf::Color(255, 255, 255));
-	Polygon.AddPoint(v[3][0], 800 - v[3][1], sf::Color(255, 255, 255));
+	Polygon.AddPoint(v[0][0], 760 - v[0][1], sf::Color(255, 0, 0));
+	Polygon.AddPoint(v[1][0], 760 - v[1][1], sf::Color(255, 0, 0));
+	Polygon.AddPoint(v[2][0], 760 - v[2][1], sf::Color(255, 0, 0));
+	Polygon.AddPoint(v[3][0], 760 - v[3][1], sf::Color(255, 0, 0));
 	
 	window->Draw(Polygon);
 }
@@ -54,7 +60,7 @@ void Object::draw(){
 Vec2f Object::col_det(Vec2f np){
 	Vec2f ret_val = np;
 	
-	// The direction vektors of the edges
+	// The direction vectors of the edges
 	Vec2f r[4];
 	r[0] = (v[0] - v[1]).normalize();
 	r[1] = (v[1] - v[2]).normalize();
@@ -67,7 +73,7 @@ Vec2f Object::col_det(Vec2f np){
 	for(int i = 0; i < 4; i++)
 		t[i] = ( n[i][0] * (v[i][1] - np[1]) + n[i][1] * (- v[i][0] + np[0]) ) / (n[i][1] * r[i][0] - n[i][0] * r[i][1]);
 	
-	// Projection vektors: (from edge to point)
+	// Projection vectors: (from edge to point)
 	bool col = true; Vec2f oproj[4];
 	for(int i = 0; i < 4; i++){
 		proj[i][0] = np[0] - (t[i] * r[i][0] + v[i][0]);

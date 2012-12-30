@@ -22,9 +22,16 @@ private:
 	Vec2f n[4];
 	Vec2f proj[4];
 	
+	void update_chg();
+	
 public:
 	Object(sf::RenderWindow * w);
+	Object(){};
+	
 	void draw();
+	void init(sf::RenderWindow * w){window = w;}
+	void set_vert(Vec2f a, int n){ v[n] = a;  this->update_chg();}
+	
 	Vec2f * get_v(){return v;}
 	Vec2f * get_n(){return n;}
 	Vec2f col_det(Vec2f np);

@@ -13,7 +13,7 @@ Session::Session(sf::RenderWindow * w, Event_Handler * e){
 	window = w;
 	event_h = e;
 	player = new Player(window);
-	obj = new Object(window);
+	lvl = new Level(window);
 }
 
 void Session::update(){
@@ -24,9 +24,9 @@ void Session::update(){
 	p_input.jmp = event_h->pollSp('u');
 	p_input.ddg = event_h->pollSp('d');
 	
-	player->update(p_input, *obj);
+	player->update(p_input, lvl->get_env());
 }
 void Session::draw(){
-	obj->draw();
+	lvl->draw();
 	player->draw();
 }

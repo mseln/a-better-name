@@ -17,6 +17,7 @@
 #include "game_states.h"
 #include "player.h"
 #include "objects.h"
+#include "level.h"
 
 class Session{
 private:
@@ -26,7 +27,7 @@ private:
 	Player * player;
 	player_input p_input;
 	
-	Object * obj;
+	Level * lvl;
 
 public:
 	Session(sf::RenderWindow * w, Event_Handler * e);

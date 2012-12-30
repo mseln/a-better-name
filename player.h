@@ -13,28 +13,34 @@
 #include <SFML/Graphics.hpp>
 #include "datatypes.h"
 #include "objects.h"
+#include "view.h"
 #include "vec2f.h"
 
 class Player{
 private:
 	sf::RenderWindow * window;
 	
-	Vec2f p;
-	double v;
+	Vec2f p, op;
+	Vec2f v;
 	bool in_air;
+	
+	My_view * view;
 	
 	void chk_col(Object obj);
 public:
 	Player(sf::RenderWindow * w){ 
 		window = w; 
-		p[0] = 10; 
-		p[1] = 790; 
-		v = 0;
+		p[0] = 75; 
+		p[1] = 200;
+		op = p;
+		v[0] = v[1] = 0;
 		in_air = true;
+		
+		view = new My_view(window);
 	}
 	
 	void draw();
-	void update(player_input input, Object obj);
+	void update(player_input input, Object * obj);
 };
 
 #endif
