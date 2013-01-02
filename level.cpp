@@ -22,19 +22,19 @@ Level::Level(sf::RenderWindow * w){
 	env[0].set_vert(Vec2f(1200,	0	), 3);
 	
 	env[1].set_vert(Vec2f(200,	150	), 0);
-	env[1].set_vert(Vec2f(200,	200	), 1);
+	env[1].set_vert(Vec2f(200,	220	), 1);
 	env[1].set_vert(Vec2f(250,	200	), 2);
 	env[1].set_vert(Vec2f(250,	150	), 3);
 	
 	env[2].set_vert(Vec2f(350,	150	), 0);
 	env[2].set_vert(Vec2f(350,	200	), 1);
-	env[2].set_vert(Vec2f(400,	200	), 2);
+	env[2].set_vert(Vec2f(400,	210	), 2);
 	env[2].set_vert(Vec2f(400,	150	), 3);
 	
 	env[3].set_vert(Vec2f(500,	40	), 0);
-	env[3].set_vert(Vec2f(500,	600	), 1);
-	env[3].set_vert(Vec2f(550,	150	), 2);
-	env[3].set_vert(Vec2f(550,	40	), 3);
+	env[3].set_vert(Vec2f(500,	50	), 1);
+	env[3].set_vert(Vec2f(600,	150	), 2);
+	env[3].set_vert(Vec2f(600,	40	), 3);
 	
 	env[4].set_vert(Vec2f(700,	100	), 0);
 	env[4].set_vert(Vec2f(700,	150	), 1);

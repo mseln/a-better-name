@@ -20,10 +20,10 @@ Game::Game(){
 
 void Game::run(){
 	while (window->IsOpened()){
-		std::cout << ctr << '\n';
+		//std::cout << ctr << '\n';
 		if (ctr == 4) ctr=0; else ctr++;
 		event_h->update();
-		if (ctr == 0) window->Clear();
+		if (ctr == 0) window->Clear(sf::Color(20, 20, 50));
 		update();
 		if (ctr == 0) window->Display();
 	}

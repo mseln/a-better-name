@@ -49,12 +49,38 @@ void Object::update_chg(){
 
 void Object::draw(){
 	sf::Shape Polygon;
-	Polygon.AddPoint(v[0][0], 760 - v[0][1], sf::Color(255, 0, 0));
-	Polygon.AddPoint(v[1][0], 760 - v[1][1], sf::Color(255, 0, 0));
-	Polygon.AddPoint(v[2][0], 760 - v[2][1], sf::Color(255, 0, 0));
-	Polygon.AddPoint(v[3][0], 760 - v[3][1], sf::Color(255, 0, 0));
+	Polygon.AddPoint(v[0][0], 760 - v[0][1], sf::Color(100, 100, 100));
+	Polygon.AddPoint(v[1][0], 760 - v[1][1], sf::Color(100, 100, 100));
+	Polygon.AddPoint(v[2][0], 760 - v[2][1], sf::Color(100, 100, 100));
+	Polygon.AddPoint(v[3][0], 760 - v[3][1], sf::Color(100, 100, 100));
 	
 	window->Draw(Polygon);
+}
+
+Vec2f project(Vec2f a, Vec2f b, Vec2f x, sf::RenderWindow * w){
+	Vec2f r, n;
+	
+	r = (a - b).normalize();
+	n = Vec2f(r[1], -r[0]);
+	
+	float t = ( n[0] * (x[1] - a[1]) + n[1] * (- x[0] + a[0]) ) / (n[0] * r[1] - n[1] * r[0]);
+	
+	Vec2f p = t * r + a;
+	Vec2f q = t * n + a;
+	
+	sf::Shape circle1 = sf::Shape::Circle(p[0], 760-p[1], 5, sf::Color::Green);
+	// sf::Shape circle2 = sf::Shape::Circle(q[0], 760-q[1], 5, sf::Color::Red);
+	
+	sf::Shape line2 = sf::Shape::Line(p[0], 760-p[1], p[0] + r[0] * 50, 760-(p[1] + r[1] * 50), 2, sf::Color::Green);
+	sf::Shape line1 = sf::Shape::Line(p[0], 760-p[1], p[0] + n[0] * -10000, 760-(p[1] + n[1] * -10000), 2, sf::Color::Red);
+	
+	w->Draw(circle1);
+	// w->Draw(circle2);
+	w->Draw(line1);
+	w->Draw(line2);
+	
+	
+	return p;
 }
 
 Vec2f Object::col_det(Vec2f np){
@@ -67,6 +93,10 @@ Vec2f Object::col_det(Vec2f np){
 	r[2] = (v[2] - v[3]).normalize();
 	r[3] = (v[3] - v[0]).normalize();
 	
+	project(v[0], v[1], np, window);
+	project(v[1], v[2], np, window);
+	project(v[2], v[3], np, window);
+	project(v[3], v[0], np, window);
 	
 	// Line-Line intersection: n = n[i] + np, r = r[i] + v[i]
 	float t[4];
@@ -76,15 +106,16 @@ Vec2f Object::col_det(Vec2f np){
 	// Projection vectors: (from edge to point)
 	bool col = true; Vec2f oproj[4];
 	for(int i = 0; i < 4; i++){
-		proj[i][0] = np[0] - (t[i] * r[i][0] + v[i][0]);
-		proj[i][1] = np[1] - (t[i] * r[i][1] + v[i][1]);
+		oproj[i][0] = proj[i][0] = np[0] - (t[i] * r[i][0] + v[i][0]);
+		oproj[i][1] = proj[i][1] = np[1] - (t[i] * r[i][1] + v[i][1]);
+		oproj[i] = oproj[i].normalize();
 	}
 	
 	// Shortest distance to edge projection:
-	if((proj[0] + n[0]).magnitude() < proj[0].magnitude() and 
-	   (proj[1] + n[1]).magnitude() < proj[1].magnitude() and 
-	   (proj[2] + n[2]).magnitude() < proj[2].magnitude() and 
-	   (proj[3] + n[3]).magnitude() < proj[3].magnitude()){
+	if((oproj[0] + n[0]) == Vec2f(0, 0) and 
+	   (oproj[1] + n[1]) == Vec2f(0, 0) and 
+	   (oproj[2] + n[2]) == Vec2f(0, 0) and 
+	   (oproj[3] + n[3]) == Vec2f(0, 0) ){
 		int shrtst = 100000000, index;
 		for(int i = 0; i < 4; i++)
 			if( shrtst > proj[i].magnitude()  ){
@@ -94,6 +125,7 @@ Vec2f Object::col_det(Vec2f np){
 		ret_val = Vec2f(t[index] * r[index][0] + v[index][0], t[index] * r[index][1] + v[index][1]);
 	}
 	
-	// If collision, return the nearest projection point on a edge from the point
+	// If collision, return the nearest projection point on the edge from the point
 	return ret_val;
 }
+

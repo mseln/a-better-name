@@ -11,6 +11,7 @@
 #define _PLAYER_H_
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include "datatypes.h"
 #include "objects.h"
 #include "view.h"
@@ -26,6 +27,9 @@ private:
 	
 	My_view * view;
 	
+	sf::Sprite sprite;
+	sf::Image image;
+	
 	void chk_col(Object obj);
 public:
 	Player(sf::RenderWindow * w){ 
@@ -37,6 +41,14 @@ public:
 		in_air = true;
 		
 		view = new My_view(window);
+		
+		
+		if (!image.LoadFromFile("blooby.png"))
+			std::cerr << "Couldn't load sprite!\n";
+		else{ 
+			sprite.SetImage(image);
+			std::cerr << "Loading image complete...!\n";
+		}
 	}
 	
 	void draw();
